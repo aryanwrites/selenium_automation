@@ -43,3 +43,12 @@ This project helped me understand:
  -	How to locate elements using class names, XPaths, and CSS selectors
  -	How to handle dynamic suggestions and clicks
  -	How to work with delays, waits, and form inputs in Selenium
+
+
+
+
+While starting appium server enter : 
+appium --allow-insecure=deepLink
+
+Install this in PYTHON
+pip install Appium-Python-Client selenium
