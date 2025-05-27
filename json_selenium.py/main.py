@@ -1,4 +1,5 @@
 from appium import webdriver
+
 from appium.options.android import UiAutomator2Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -24,17 +25,19 @@ driver.execute_script("mobile: deepLink", {
     "package": "com.grofers.customerapp"
 })
 
-try:
-    wait = WebDriverWait(driver, 8)
-    add_button = wait.until(
-        EC.element_to_be_clickable((AppiumBy.XPATH, "//*[@text='Add to Cart']"))
-    )
-    add_button.click()
-    print("✅ 'Add to Cart' button clicked successfully.")
-except Exception as e:
-    print("Failed to click 'Add to Cart':", e)
 
-# Optional: pause and quit
+wait = WebDriverWait(driver, 5)
+
+
+add_to_cart_button = wait.until(
+    EC.presence_of_element_located((
+        AppiumBy.ANDROID_UIAUTOMATOR,
+        'new UiSelector().textContains("Add")'
+    ))
+)
+add_to_cart_button.click()
+
+
 time.sleep(3)
 
 driver.quit()
