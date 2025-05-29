@@ -10,10 +10,11 @@ with open("links.json", "r") as f:
     data = json.load(f)
     deep_links = data["links"]
 
-    print(f"Total links: {len(deep_links)}")
-print(deep_links)
 
-# Appium options
+# print(f"Total links: {len(deep_links)}")
+# print(deep_links)
+
+
 options = UiAutomator2Options()
 options.platformName = "Android"
 options.deviceName = "emulator-5554"
@@ -22,15 +23,12 @@ options.appActivity = "com.grofers.customerapp.activities.SplashActivity"
 options.automationName = "UiAutomator2"
 options.noReset = True
 
-# Start Appium driver once
+
 driver = webdriver.Remote("http://localhost:4723", options=options)
 wait = WebDriverWait(driver, 10)
 
 for link in deep_links:
-    # Ensure app is closed before new deep link
     print("hey")
-    driver.terminate_app("com.grofers.customerapp")
-    time.sleep(1)
 
     # Relaunch using deep link
     driver.execute_script("mobile: deepLink", {
@@ -38,7 +36,7 @@ for link in deep_links:
         "package": "com.grofers.customerapp"
     })
 
-    time.sleep(5)  # Allow screen to load
+    time.sleep(3)  # Allow screen to load
 
     try:
         add_to_cart_button = wait.until(
@@ -49,7 +47,7 @@ for link in deep_links:
         )
         add_to_cart_button.click()
     except Exception as e:
-        print(f"❌ Failed to add item from: {link} | Error: {e}")
+        print(f"❌ Failed to add item from: {link} |")
 
     time.sleep(2)
 
